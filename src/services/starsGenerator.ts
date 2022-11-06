@@ -1,8 +1,8 @@
-import Star from "../models/star";
+import IStar from "../models/IStar";
 
-const starsGenerator = (width: number, height: number, maxBright: number = 6, basicIterations: number = 20, sideIterations: number = 30, radiusSideArea: number = 400): Star[] => {
-    let listOfStar: Star[] = basicStarsGenerate(width, height, basicIterations, maxBright)
-    let newStars: Star[] = []
+const starsGenerator = (width: number, height: number, maxBright: number = 6, basicIterations: number = 20, sideIterations: number = 30, radiusSideArea: number = 400): IStar[] => {
+    let listOfStar: IStar[] = basicStarsGenerate(width, height, basicIterations, maxBright)
+    let newStars: IStar[] = []
     for (const star of listOfStar) {
         const minWidth = (star.posX - radiusSideArea) ? (star.posY - radiusSideArea) : 0
         const maxWidth = (star.posX + radiusSideArea) <= width ? (star.posX + radiusSideArea) : width
@@ -17,7 +17,7 @@ const starsGenerator = (width: number, height: number, maxBright: number = 6, ba
 }
 
 const basicStarsGenerate = (width: number, height: number, iterations: number = 10, maxBright: number = 8, minWidth: number = 0, minHeight: number = 0) => {
-    let listOfStar: Star[] = []
+    let listOfStar: IStar[] = []
     for (const x of Array.from(Array(iterations).keys())) {
         listOfStar.push(
             {

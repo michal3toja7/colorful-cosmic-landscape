@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Star from "../models/star";
+import IStar from "../models/IStar";
 import starsGenerator from "../services/starsGenerator";
 
 function SpaceComponent() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const contextRef = useRef<CanvasRenderingContext2D | null>(null)
-    const [stars, setStars] = useState<Star[]>(starsGenerator(window.innerWidth, window.innerHeight))
+    const [stars, setStars] = useState<IStar[]>(starsGenerator(window.innerWidth, window.innerHeight))
 
 
     useEffect(() => {
