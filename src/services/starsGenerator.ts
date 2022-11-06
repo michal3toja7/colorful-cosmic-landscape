@@ -1,15 +1,15 @@
 import Star from "../models/star";
 
-const starsGenerator = (width: number, height: number): Star[] => {
-    let listOfStar: Star[] = basicStarsGenerate(width, height, 20, 6)
+const starsGenerator = (width: number, height: number, maxBright: number = 6, basicIterations: number = 20, sideIterations: number = 30, radiusSideArea: number = 400): Star[] => {
+    let listOfStar: Star[] = basicStarsGenerate(width, height, basicIterations, maxBright)
     let newStars: Star[] = []
     for (const star of listOfStar) {
-        const minWidth = (star.posX - 400) ? (star.posY - 400) : 0
-        const maxWidth = (star.posX + 400) <= width ? (star.posX + 400) : width
-        const minHeight = (star.posY - 400) ? (star.posY - 400) : 0
-        const maxHeight = (star.posY + 400) <= height ? (star.posY + 400) : height
+        const minWidth = (star.posX - radiusSideArea) ? (star.posY - radiusSideArea) : 0
+        const maxWidth = (star.posX + radiusSideArea) <= width ? (star.posX + radiusSideArea) : width
+        const minHeight = (star.posY - radiusSideArea) ? (star.posY - radiusSideArea) : 0
+        const maxHeight = (star.posY + radiusSideArea) <= height ? (star.posY + radiusSideArea) : height
         newStars.push(star)
-        newStars.push(...basicStarsGenerate(maxWidth, maxHeight, 30, star.bright, minWidth, minHeight ))
+        newStars.push(...basicStarsGenerate(maxWidth, maxHeight, sideIterations, star.bright, minWidth, minHeight))
     }
 
     return newStars
