@@ -3,7 +3,7 @@ export default interface IStar {
     posY: number
     bright: number
     glow: IGlow
-    flash? :IFlash
+    flash: IFlash | null
 }
 export interface IGlow {
     color: string
