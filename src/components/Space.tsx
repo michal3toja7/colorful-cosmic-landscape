@@ -14,7 +14,7 @@ function SpaceComponent() {
 
     const drawStars = (context: CanvasRenderingContext2D) => {
         console.log(stars)
-        for (let star of stars){
+        for (let star of stars) {
 
             const gradient = context.createRadialGradient(star.posX, star.posY, 1, star.posX, star.posY, star.glow.radial);
             gradient.addColorStop(0, star.glow.color)
@@ -27,6 +27,20 @@ function SpaceComponent() {
             context.beginPath();
             context.arc(star.posX, star.posY, star.bright, 0, 2 * Math.PI,);
             context.fill();
+
+
+            if (star.flash) {
+                const gradient2 = context.createRadialGradient(star.posX, star.posY, 1, star.posX, star.posY, star.flash.bright);
+                gradient2.addColorStop(0, "#FFFFFFb0")
+                gradient2.addColorStop(1, "transparent")
+                context.fillStyle = gradient2;
+
+                context.ellipse(star.posX, star.posY, star.bright, star.flash.bright, (Math.PI / 2) + star.flash.angle, 0, 2 * Math.PI);
+                context.ellipse(star.posX, star.posY, star.bright, star.flash.bright, Math.PI + star.flash.angle, 0, 2 * Math.PI);
+                context.fill()
+            }
+
+
         }
     }
 
