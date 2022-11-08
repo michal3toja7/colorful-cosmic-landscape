@@ -1,4 +1,4 @@
-import IStar, {IGlow} from "../models/IStar";
+import IStar, {IFlash, IGlow} from "../models/IStar";
 
 const starsGenerator = (width: number, height: number, maxBright: number = 6, basicIterations: number = 20, sideIterations: number = 30, radiusSideArea: number = 400): IStar[] => {
     let listOfStar: IStar[] = []
@@ -16,8 +16,6 @@ const starsGenerator = (width: number, height: number, maxBright: number = 6, ba
     listOfStar.push(...basicStarsGenerate(width, height, 1000, 2))
 
 
-
-
     return listOfStar
 
 }
@@ -30,13 +28,24 @@ const basicStarsGenerate = (width: number, height: number, iterations: number = 
             {
                 posX: getRandomInt(minWidth, width * 2),
                 posY: getRandomInt(minHeight, height * 2),
-                bright: bright ,
-                glow: glowGenerate(bright)
+                bright: bright,
+                glow: glowGenerate(bright),
+                flash: flashGenerator(bright)
             }
         )
     }
 
     return listOfStar
+}
+
+const flashGenerator = (brigth: number): IFlash | null => {
+    if (getRandomInt(0, 10) === 9) {
+        return {
+            bright: getRandomInt(0, (brigth * 20)),
+            angle: getRandomInt(0, 90)
+        }
+    }
+    return null
 
 }
 
@@ -57,12 +66,12 @@ const colorIntensive = [
     "0D"
 ]
 
-const glowGenerate = (bright: number): IGlow =>  {
-    const baseCol = baseColors[getRandomInt(0, (baseColors.length-1))]
-    const intensiveCol = colorIntensive[getRandomInt(0, (colorIntensive.length-1))]
+const glowGenerate = (bright: number): IGlow => {
+    const baseCol = baseColors[getRandomInt(0, (baseColors.length - 1))]
+    const intensiveCol = colorIntensive[getRandomInt(0, (colorIntensive.length - 1))]
     return {
-        color: baseCol+intensiveCol,
-        radial: getRandomInt(0, (bright* 100))
+        color: baseCol + intensiveCol,
+        radial: getRandomInt(0, (bright * 100))
     }
 }
 
